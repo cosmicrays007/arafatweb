@@ -25,6 +25,94 @@
       overflow-x:hidden;
     }
 
+    /* Welcome Splash Screen */
+    #welcome-splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeOut 0.8s ease-in-out 2.5s forwards;
+    }
+
+    .welcome-content {
+      text-align: center;
+      animation: slideUp 1s ease-out;
+    }
+
+    .welcome-logo {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 48px;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      color: var(--accent);
+      box-shadow: 0 0 40px rgba(198, 40, 40, 0.6), 0 0 80px rgba(198, 40, 40, 0.3);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .welcome-text {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(198, 40, 40, 0.8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .welcome-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      letter-spacing: 2px;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 40px rgba(198, 40, 40, 0.6), 0 0 80px rgba(198, 40, 40, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 60px rgba(198, 40, 40, 0.8), 0 0 100px rgba(198, 40, 40, 0.5);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
     header {
       position:fixed;top:20px;left:0;right:0;z-index:50;
       display:flex;justify-content:space-between;align-items:center;
@@ -79,6 +167,107 @@
     .skill{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,0.03)}
     .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin-top:8px}
     .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),rgba(198,40,40,0.6));border-radius:999px;transition:width 1.2s}
+
+    /* Project Cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(198,40,40,0.3);
+      border-color: rgba(198,40,40,0.4);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .project-title {
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .expand-icon {
+      font-size: 28px;
+      color: var(--accent);
+      font-weight: 700;
+      min-width: 30px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card.expanded .expand-icon {
+      transform: rotate(45deg);
+    }
+
+    .project-code {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      margin-top: 0;
+    }
+
+    .project-card.expanded .project-code {
+      max-height: 600px;
+      margin-top: 16px;
+    }
+
+    .project-code pre {
+      background: #1a1a1a;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .project-code code {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e8e8e8;
+    }
+
+    /* Badge Styles */
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      background: rgba(76, 175, 80, 0.15);
+      color: #81C784;
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .meta {
+      width: 100%;
+    }
 
     footer{padding:28px 24px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.04)}
 
@@ -158,6 +347,15 @@
 </head>
 <body>
 
+  <!-- Welcome Splash Screen -->
+  <div id="welcome-splash">
+    <div class="welcome-content">
+      <div class="welcome-logo">MK</div>
+      <div class="welcome-text">Welcome</div>
+      <div class="welcome-subtitle">MD. MOBAROK KARIM</div>
+    </div>
+  </div>
+
   <header>
     <div class="brand">
       <div class="logo">MK</div>
@@ -201,14 +399,18 @@
           <div class="skill"><div class="meta"><div>C</div><div class="bar"><i data-level="85"></i></div></div></div>
           <div class="skill"><div class="meta"><div>C++</div><div class="bar"><i data-level="78"></i></div></div></div>
           <div class="skill"><div class="meta"><div>Python</div><div class="bar"><i data-level="82"></i></div></div></div>
-          <div class="skill"><div class="meta">
-            <div>Codeforces</div>
-            <div style="font-size:13px;color:var(--muted)">
-              Handle: <a href="https://codeforces.com/profile/arafatkarim236" target="_blank" style="color:var(--accent)">arafatkarim236</a><br>
-              Problems solved: <strong>12+</strong>
+          <div class="skill">
+            <div class="meta">
+              <div>
+                Codeforces <span class="badge">Beginner Level</span>
+              </div>
+              <div style="font-size:13px;color:var(--muted);margin-top:6px">
+                Handle: <a href="https://codeforces.com/profile/arafatkarim236" target="_blank" style="color:var(--accent);text-decoration:none">arafatkarim236</a><br>
+                Problems solved: <strong>20+</strong> • Currently learning and improving
+              </div>
+              <div class="bar"><i data-level="40"></i></div>
             </div>
-            <div class="bar"><i data-level="40"></i></div>
-          </div></div>
+          </div>
         </div>
       </div>
     </section>
@@ -216,9 +418,253 @@
     <section id="projects">
       <div class="container">
         <div class="section-title"><h2>Projects</h2><span>C / C++ work</span></div>
-        <div class="skills-list">
-          <div class="skill"><div><div>Calculator (C++)</div><div style="color:var(--muted);font-size:14px">Console-based calculator supporting basic arithmetic.</div></div></div>
-          <div class="skill"><div><div>ATM Simulation (C)</div><div style="color:var(--muted);font-size:14px">ATM system with deposit, withdraw, and balance check.</div></div></div>
+        <div class="projects-grid">
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">CGPA Calculator</div>
+                <div class="project-desc">Calculates a student's cumulative grade point average based on course grades and credits.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int n;
+    float totalPoints = 0, totalCredits = 0;
+
+    cout &lt;&lt; "Enter number of courses: ";
+    cin &gt;&gt; n;
+
+    for(int i = 0; i &lt; n; i++) {
+        float grade, credit;
+        cout &lt;&lt; "Enter grade and credit for course " &lt;&lt; i+1 &lt;&lt; ": ";
+        cin &gt;&gt; grade &gt;&gt; credit;
+        totalPoints += grade * credit;
+        totalCredits += credit;
+    }
+
+    cout &lt;&lt; "Your CGPA: " &lt;&lt; totalPoints / totalCredits &lt;&lt; endl;
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Rock Paper Scissors Game</div>
+                <div class="project-desc">A simple game where users play against the computer, choosing between rock, paper, or scissors.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int user, computer;
+
+    cout &lt;&lt; "Rock(1), Paper(2), Scissors(3): ";
+    cin &gt;&gt; user;
+
+    computer = rand() % 3 + 1;
+
+    if(user == computer) cout &lt;&lt; "Draw!";
+    else if((user == 1 && computer == 3) ||
+            (user == 2 && computer == 1) ||
+            (user == 3 && computer == 2))
+        cout &lt;&lt; "You Win!";
+    else cout &lt;&lt; "Computer Wins!";
+
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Casino Number Guessing Game</div>
+                <div class="project-desc">Players guess a random number generated by the computer to win prizes based on difficulty.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+int main() {
+    srand(time(0));
+    int balance = 100, bet, guess, number;
+
+    while(balance &gt; 0) {
+        number = rand() % 10 + 1;
+        cout &lt;&lt; "Balance: $" &lt;&lt; balance &lt;&lt; "\nBet amount: ";
+        cin &gt;&gt; bet;
+
+        cout &lt;&lt; "Guess (1-10): ";
+        cin &gt;&gt; guess;
+
+        if(guess == number) {
+            balance += bet * 10;
+            cout &lt;&lt; "You won! ";
+        } else {
+            balance -= bet;
+            cout &lt;&lt; "Wrong! Number was " &lt;&lt; number;
+        }
+        cout &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; "Game Over!";
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Scientific Calculator</div>
+                <div class="project-desc">Performs basic and advanced mathematical operations, including trigonometric functions.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+using namespace std;
+
+int main() {
+    int choice;
+    double a, b;
+
+    cout &lt;&lt; "1.Add 2.Sub 3.Mul 4.Div 5.Sin 6.Cos 7.Tan\n";
+    cin &gt;&gt; choice;
+
+    if(choice &lt;= 4) {
+        cout &lt;&lt; "Enter two numbers: ";
+        cin &gt;&gt; a &gt;&gt; b;
+    } else {
+        cout &lt;&lt; "Enter angle (degrees): ";
+        cin &gt;&gt; a;
+        a = a * M_PI / 180;
+    }
+
+    switch(choice) {
+        case 1: cout &lt;&lt; a + b; break;
+        case 2: cout &lt;&lt; a - b; break;
+        case 3: cout &lt;&lt; a * b; break;
+        case 4: cout &lt;&lt; a / b; break;
+        case 5: cout &lt;&lt; sin(a); break;
+        case 6: cout &lt;&lt; cos(a); break;
+        case 7: cout &lt;&lt; tan(a); break;
+    }
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">Login and Registration System</div>
+                <div class="project-desc">Manages user credentials, allowing registration and login functionalities.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+void registerUser() {
+    string username, password;
+    cout &lt;&lt; "Enter username: "; cin &gt;&gt; username;
+    cout &lt;&lt; "Enter password: "; cin &gt;&gt; password;
+
+    ofstream file("users.txt", ios::app);
+    file &lt;&lt; username &lt;&lt; " " &lt;&lt; password &lt;&lt; endl;
+    file.close();
+    cout &lt;&lt; "Registration successful!\n";
+}
+
+void login() {
+    string u, p, username, password;
+    cout &lt;&lt; "Username: "; cin &gt;&gt; username;
+    cout &lt;&lt; "Password: "; cin &gt;&gt; password;
+
+    ifstream file("users.txt");
+    bool found = false;
+    while(file &gt;&gt; u &gt;&gt; p) {
+        if(u == username && p == password) {
+            found = true; break;
+        }
+    }
+    cout &lt;&lt; (found ? "Login successful!" : "Invalid!") &lt;&lt; endl;
+}
+
+int main() {
+    int choice;
+    cout &lt;&lt; "1.Register 2.Login: ";
+    cin &gt;&gt; choice;
+    choice == 1 ? registerUser() : login();
+    return 0;
+}</code></pre>
+            </div>
+          </div>
+
+          <div class="project-card" onclick="toggleCode(this)">
+            <div class="project-header">
+              <div>
+                <div class="project-title">ATM Simulation</div>
+                <div class="project-desc">ATM system with deposit, withdraw, and balance check features.</div>
+              </div>
+              <span class="expand-icon">+</span>
+            </div>
+            <div class="project-code">
+              <pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    float balance = 0, amount;
+    int choice;
+
+    do {
+        printf("\n1.Check 2.Deposit 3.Withdraw 4.Exit\n");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                printf("Balance: %.2f BDT\n", balance);
+                break;
+            case 2:
+                printf("Deposit: ");
+                scanf("%f", &amount);
+                balance += amount;
+                break;
+            case 3:
+                printf("Withdraw: ");
+                scanf("%f", &amount);
+                if(amount &lt;= balance)
+                    balance -= amount;
+                else
+                    printf("Insufficient!\n");
+                break;
+        }
+    } while(choice != 4);
+
+    return 0;
+}</code></pre>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -258,17 +704,24 @@
 
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
+
     function animateSkills(){
       document.querySelectorAll('.bar>i').forEach(el=>{
         el.style.width=el.getAttribute('data-level')+'%';
       });
     }
+
     const io=new IntersectionObserver(entries=>{
       entries.forEach(e=>{
         if(e.isIntersecting)animateSkills();
       });
     },{threshold:0.2});
     io.observe(document.querySelector('#skills'));
+
+    // Toggle project code
+    function toggleCode(card) {
+      card.classList.toggle('expanded');
+    }
   </script>
 </body>
 </html>
