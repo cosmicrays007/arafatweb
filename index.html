@@ -13,6 +13,19 @@
       --bg2:#141414;
       --accent:#c62828;
       --muted:#9aa0a6;
+      --text:#e8e8e8;
+      --card-bg:rgba(255,255,255,0.02);
+      --card-border:rgba(255,255,255,0.03);
+    }
+
+    [data-theme="light"] {
+      --bg1:#f5f5f5;
+      --bg2:#ffffff;
+      --accent:#c62828;
+      --muted:#666666;
+      --text:#1a1a1a;
+      --card-bg:rgba(0,0,0,0.03);
+      --card-border:rgba(0,0,0,0.08);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -20,9 +33,10 @@
     body {
       font-family:"Inter",system-ui;
       background:linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:#e8e8e8;
+      color:var(--text);
       -webkit-font-smoothing:antialiased;
       overflow-x:hidden;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* Welcome Splash Screen */
@@ -118,9 +132,10 @@
       display:flex;justify-content:space-between;align-items:center;
       margin:0 24px;padding:10px 28px;
       backdrop-filter:blur(8px) saturate(110%);
-      background:rgba(255,255,255,0.02);
-      border-radius:14px;border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 6px 20px rgba(0,0,0,0.6);
+      background:var(--card-bg);
+      border-radius:14px;border:1px solid var(--card-border);
+      box-shadow:0 6px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
     }
 
     .brand{display:flex;gap:12px;align-items:center}
@@ -128,8 +143,9 @@
       width:46px;height:46px;border-radius:10px;
       display:flex;align-items:center;justify-content:center;
       font-family:'Cinzel',serif;font-weight:700;font-size:18px;
-      background:linear-gradient(135deg,#111,#222);
+      background:linear-gradient(135deg,var(--card-bg),var(--card-border));
       color:var(--accent);
+      border: 2px solid var(--card-border);
     }
 
     nav a{
@@ -137,24 +153,24 @@
       font-weight:600;font-size:15px;padding:8px 12px;border-radius:9px;
       transition:all .3s ease;
     }
-    nav a:hover{color:#fff;background:rgba(255,255,255,0.05);transform:translateY(-3px)}
+    nav a:hover{color:var(--text);background:var(--card-bg);transform:translateY(-3px)}
     .cta{background:rgba(198,40,40,0.08);color:var(--accent);border:1px solid rgba(198,40,40,0.12)}
 
     .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px}
     .hero-inner{max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .intro{padding:28px 32px;border-radius:18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    .intro{padding:28px 32px;border-radius:18px;background:var(--card-bg);border:1px solid var(--card-border);box-shadow:0 10px 40px rgba(0,0,0,0.2)}
     .eyebrow{font-family:'Cinzel',serif;color:var(--accent);font-weight:700;margin-bottom:8px}
-    h1{font-family:'Cinzel',serif;font-size:46px;line-height:1.05;margin-bottom:8px;color:#fff;text-shadow:0 4px 16px rgba(0,0,0,0.6)}
+    h1{font-family:'Cinzel',serif;font-size:46px;line-height:1.05;margin-bottom:8px;color:var(--text);text-shadow:0 4px 16px rgba(0,0,0,0.3)}
     p.lead{color:var(--muted);font-size:16px;margin-bottom:18px}
     .actions{display:flex;gap:12px;flex-wrap:wrap}
     .btn{
       display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;
-      font-weight:700;border:1px solid rgba(255,255,255,0.05);
-      text-decoration:none;color:#fff;background:transparent;
+      font-weight:700;border:1px solid var(--card-border);
+      text-decoration:none;color:var(--text);background:transparent;
       transition:transform .25s ease, box-shadow .25s ease;
-      box-shadow:0 6px 18px rgba(0,0,0,0.5);
+      box-shadow:0 6px 18px rgba(0,0,0,0.2);
     }
-    .btn:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(0,0,0,0.7)}
+    .btn:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(0,0,0,0.3)}
     .glow{text-shadow:0 0 12px rgba(198,40,40,0.2),0 8px 30px rgba(0,0,0,0.6)}
 
     section{padding:72px 24px;position:relative}
@@ -164,8 +180,8 @@
     .section-title span{color:var(--muted);font-size:14px}
 
     .skills-list{display:flex;flex-direction:column;gap:12px}
-    .skill{background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;display:flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,0.03)}
-    .bar{height:10px;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;margin-top:8px}
+    .skill{background:var(--card-bg);padding:12px;border-radius:10px;display:flex;align-items:center;gap:12px;border:1px solid var(--card-border)}
+    .bar{height:10px;background:var(--card-border);border-radius:999px;overflow:hidden;margin-top:8px}
     .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),rgba(198,40,40,0.6));border-radius:999px;transition:width 1.2s}
 
     /* Project Cards */
@@ -176,8 +192,8 @@
     }
 
     .project-card {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.05);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 20px;
       cursor: pointer;
@@ -201,7 +217,7 @@
     .project-title {
       font-weight: 700;
       font-size: 18px;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 8px;
     }
 
@@ -237,19 +253,19 @@
     }
 
     .project-code pre {
-      background: #1a1a1a;
+      background: var(--card-bg);
       padding: 16px;
       border-radius: 8px;
       overflow-x: auto;
       border-left: 4px solid var(--accent);
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .project-code code {
       font-family: 'Courier New', monospace;
       font-size: 13px;
       line-height: 1.6;
-      color: #e8e8e8;
+      color: var(--text);
     }
 
     /* Badge Styles */
@@ -269,7 +285,7 @@
       width: 100%;
     }
 
-    footer{padding:28px 24px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.04)}
+    footer{padding:28px 24px;text-align:center;color:var(--muted);border-top:1px solid var(--card-border)}
 
     /* Glowing Contact Buttons */
     .contact-links {
@@ -283,20 +299,23 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.03);
-      color: #fff;
+      background: var(--card-bg);
+      color: var(--text);
       padding: 12px 20px;
       border-radius: 12px;
       font-weight: 600;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid var(--card-border);
       transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(255,255,255,0.05);
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
     }
 
     .contact-btn img {
       width: 20px;
       height: 20px;
+    }
+    
+    [data-theme="dark"] .contact-btn img {
       filter: invert(1);
     }
 
@@ -330,16 +349,53 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.06);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       transition: all .3s ease;
     }
 
-    .float-icon img { width: 22px; height: 22px; filter: invert(1); }
+    .float-icon img { width: 22px; height: 22px; }
+    
+    [data-theme="dark"] .float-icon img { filter: invert(1); }
 
     .float-icon:hover {
       transform: scale(1.15);
       box-shadow: 0 0 20px var(--accent);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 6px 20px var(--accent);
+    }
+
+    .theme-toggle svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      transform: rotate(180deg);
     }
 
     @media(max-width:980px){.hero-inner{grid-template-columns:1fr}}
@@ -399,6 +455,10 @@
           <div class="skill"><div class="meta"><div>C</div><div class="bar"><i data-level="85"></i></div></div></div>
           <div class="skill"><div class="meta"><div>C++</div><div class="bar"><i data-level="78"></i></div></div></div>
           <div class="skill"><div class="meta"><div>Python</div><div class="bar"><i data-level="82"></i></div></div></div>
+          <div class="skill"><div class="meta"><div>Java</div><div class="bar"><i data-level="75"></i></div></div></div>
+          <div class="skill"><div class="meta"><div>HTML</div><div class="bar"><i data-level="90"></i></div></div></div>
+          <div class="skill"><div class="meta"><div>CSS</div><div class="bar"><i data-level="88"></i></div></div></div>
+          <div class="skill"><div class="meta"><div>JavaScript</div><div class="bar"><i data-level="80"></i></div></div></div>
           <div class="skill">
             <div class="meta">
               <div>
@@ -695,6 +755,24 @@ int main() {
     <footer>© <span id="year"></span> MD. Mobarok Karim — Dark Anime Portfolio</footer>
   </main>
 
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <svg id="theme-icon-sun" viewBox="0 0 24 24" style="display: none;">
+      <circle cx="12" cy="12" r="5"/>
+      <line x1="12" y1="1" x2="12" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/>
+      <line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg id="theme-icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
+
   <!-- Floating Bar -->
   <div class="floating-bar">
     <a href="https://wa.me/8801902083120" target="_blank" class="float-icon"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"></a>
@@ -703,6 +781,45 @@ int main() {
   </div>
 
   <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Toggle icons
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+      
+      if (newTheme === 'light') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    }
+
+    // Load saved theme
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      const sunIcon = document.getElementById('theme-icon-sun');
+      const moonIcon = document.getElementById('theme-icon-moon');
+      
+      if (savedTheme === 'light') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
+    });
+
     document.getElementById('year').textContent=new Date().getFullYear();
 
     function animateSkills(){
