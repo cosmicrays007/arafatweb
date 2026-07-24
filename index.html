@@ -1,844 +1,343 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MD. Mobarok Karim — Portfolio</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Mobarok Karim | System Architect</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@300;400;600&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+  <!-- Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
-      --bg1:#0a0a0a;
-      --bg2:#141414;
-      --accent:#c62828;
-      --muted:#9aa0a6;
-      --text:#e8e8e8;
-      --card-bg:rgba(255,255,255,0.02);
-      --card-border:rgba(255,255,255,0.03);
+      /* Dark Theme (Default) */
+      --bg: #050505;
+      --card: rgba(20, 20, 20, 0.8);
+      --accent: #ff2e2e;
+      --accent-glow: rgba(255, 46, 46, 0.3);
+      --text: #ffffff;
+      --muted: #888;
+      --grid: rgba(255, 255, 255, 0.03);
     }
 
     [data-theme="light"] {
-      --bg1:#f5f5f5;
-      --bg2:#ffffff;
-      --accent:#c62828;
-      --muted:#666666;
-      --text:#1a1a1a;
-      --card-bg:rgba(0,0,0,0.03);
-      --card-border:rgba(0,0,0,0.08);
+      /* White Mode Theme */
+      --bg: #f0f2f5;
+      --card: rgba(255, 255, 255, 0.9);
+      --accent: #d32f2f;
+      --accent-glow: rgba(211, 47, 47, 0.2);
+      --text: #1a1a1a;
+      --muted: #555;
+      --grid: rgba(0, 0, 0, 0.05);
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
+    * { box-sizing: border-box; margin: 0; padding: 0; transition: background 0.5s ease, color 0.3s ease; }
+    
     body {
-      font-family:"Inter",system-ui;
-      background:linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      overflow-x:hidden;
-      transition: background 0.3s ease, color 0.3s ease;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      background-image: 
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 30px 30px;
     }
 
-    /* Welcome Splash Screen */
-    #welcome-splash {
+    /* --- Theme Flash Transition Effect --- */
+    #theme-flash {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a0a 50%, #0a0a0a 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      inset: 0;
+      background: white;
       z-index: 9999;
-      animation: fadeOut 0.8s ease-in-out 2.5s forwards;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .flash-active { animation: flashAnim 0.6s ease-out; }
+    @keyframes flashAnim {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
     }
 
-    .welcome-content {
-      text-align: center;
-      animation: slideUp 1s ease-out;
-    }
-
-    .welcome-logo {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
+    /* --- Navigation --- */
+    header {
+      position: fixed;
+      top: 0; width: 100%;
+      padding: 20px 50px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--grid);
+    }
+
+    .logo { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--accent); text-decoration: none; text-shadow: 0 0 10px var(--accent-glow); }
+    
+    .theme-toggle {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.8rem;
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 48px;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-      color: var(--accent);
-      box-shadow: 0 0 40px rgba(198, 40, 40, 0.6), 0 0 80px rgba(198, 40, 40, 0.3);
-      animation: glow 2s ease-in-out infinite;
+      align-items: center;
+      text-align: center;
     }
 
-    .welcome-text {
+    .glitch {
       font-family: 'Cinzel', serif;
-      font-size: 32px;
-      color: #fff;
-      margin-bottom: 10px;
-      text-shadow: 0 0 20px rgba(198, 40, 40, 0.8);
-      animation: pulse 2s ease-in-out infinite;
+      font-size: clamp(3rem, 10vw, 6rem);
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 5px;
     }
 
-    .welcome-subtitle {
-      font-size: 16px;
-      color: var(--muted);
+    /* --- Status Board (Anime RPG Style) --- */
+    .status-board {
+      background: var(--card);
+      border: 2px solid var(--accent);
+      padding: 30px;
+      max-width: 800px;
+      margin: -50px auto 50px;
+      position: relative;
+      box-shadow: 10px 10px 0px var(--accent);
+      backdrop-filter: blur(10px);
+    }
+
+    .status-header {
+      position: absolute;
+      top: -15px; left: 20px;
+      background: var(--accent);
+      color: white;
+      padding: 2px 15px;
+      font-size: 0.7rem;
+      font-weight: bold;
       letter-spacing: 2px;
     }
 
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+    /* --- Skills Section --- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
     }
 
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .skill-box { margin-bottom: 20px; }
+    .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-family: 'Fira Code'; font-weight: 600; }
+    .bar-bg { width: 100%; height: 10px; background: var(--grid); border-radius: 2px; border: 1px solid var(--muted); }
+    .bar-fill { 
+      height: 100%; 
+      background: var(--accent); 
+      width: 0; 
+      transition: width 2s cubic-bezier(0.1, 0, 0.2, 1);
+      box-shadow: 0 0 10px var(--accent-glow);
     }
 
-    @keyframes glow {
-      0%, 100% {
-        box-shadow: 0 0 40px rgba(198, 40, 40, 0.6), 0 0 80px rgba(198, 40, 40, 0.3);
-      }
-      50% {
-        box-shadow: 0 0 60px rgba(198, 40, 40, 0.8), 0 0 100px rgba(198, 40, 40, 0.5);
-      }
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    header {
-      position:fixed;top:20px;left:0;right:0;z-index:50;
-      display:flex;justify-content:space-between;align-items:center;
-      margin:0 24px;padding:10px 28px;
-      backdrop-filter:blur(8px) saturate(110%);
-      background:var(--card-bg);
-      border-radius:14px;border:1px solid var(--card-border);
-      box-shadow:0 6px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
-
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{
-      width:46px;height:46px;border-radius:10px;
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Cinzel',serif;font-weight:700;font-size:18px;
-      background:linear-gradient(135deg,var(--card-bg),var(--card-border));
-      color:var(--accent);
-      border: 2px solid var(--card-border);
-    }
-
-    nav a{
-      color:var(--muted);text-decoration:none;margin-left:16px;
-      font-weight:600;font-size:15px;padding:8px 12px;border-radius:9px;
-      transition:all .3s ease;
-    }
-    nav a:hover{color:var(--text);background:var(--card-bg);transform:translateY(-3px)}
-    .cta{background:rgba(198,40,40,0.08);color:var(--accent);border:1px solid rgba(198,40,40,0.12)}
-
-    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 24px 80px}
-    .hero-inner{max-width:1000px;width:100%;display:grid;grid-template-columns:1fr 420px;gap:36px;align-items:center}
-    .intro{padding:28px 32px;border-radius:18px;background:var(--card-bg);border:1px solid var(--card-border);box-shadow:0 10px 40px rgba(0,0,0,0.2)}
-    .eyebrow{font-family:'Cinzel',serif;color:var(--accent);font-weight:700;margin-bottom:8px}
-    h1{font-family:'Cinzel',serif;font-size:46px;line-height:1.05;margin-bottom:8px;color:var(--text);text-shadow:0 4px 16px rgba(0,0,0,0.3)}
-    p.lead{color:var(--muted);font-size:16px;margin-bottom:18px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;
-      font-weight:700;border:1px solid var(--card-border);
-      text-decoration:none;color:var(--text);background:transparent;
-      transition:transform .25s ease, box-shadow .25s ease;
-      box-shadow:0 6px 18px rgba(0,0,0,0.2);
-    }
-    .btn:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(0,0,0,0.3)}
-    .glow{text-shadow:0 0 12px rgba(198,40,40,0.2),0 8px 30px rgba(0,0,0,0.6)}
-
-    section{padding:72px 24px;position:relative}
-    .container{max-width:1000px;margin:0 auto}
-    .section-title{display:flex;align-items:end;gap:12px;margin-bottom:18px}
-    .section-title h2{font-family:'Cinzel',serif;font-size:22px}
-    .section-title span{color:var(--muted);font-size:14px}
-
-    .skills-list{display:flex;flex-direction:column;gap:12px}
-    .skill{background:var(--card-bg);padding:12px;border-radius:10px;display:flex;align-items:center;gap:12px;border:1px solid var(--card-border)}
-    .bar{height:10px;background:var(--card-border);border-radius:999px;overflow:hidden;margin-top:8px}
-    .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),rgba(198,40,40,0.6));border-radius:999px;transition:width 1.2s}
-
-    /* Project Cards */
-    .projects-grid {
+    /* --- Project Cards --- */
+    .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
     }
 
     .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.4s ease;
+      background: var(--card);
+      border: 1px solid var(--grid);
+      padding: 30px;
+      position: relative;
       overflow: hidden;
+      border-left: 5px solid var(--accent);
     }
 
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(198,40,40,0.3);
-      border-color: rgba(198,40,40,0.4);
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
-    .project-header {
+    .project-card h3 { font-family: 'Cinzel'; color: var(--accent); margin-bottom: 10px; }
+
+    /* --- Contact --- */
+    .contact-bar {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .project-title {
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-
-    .project-desc {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .expand-icon {
-      font-size: 28px;
-      color: var(--accent);
-      font-weight: 700;
-      min-width: 30px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .project-card.expanded .expand-icon {
-      transform: rotate(45deg);
-    }
-
-    .project-code {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-      margin-top: 0;
-    }
-
-    .project-card.expanded .project-code {
-      max-height: 600px;
-      margin-top: 16px;
-    }
-
-    .project-code pre {
-      background: var(--card-bg);
-      padding: 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      border-left: 4px solid var(--accent);
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
-    }
-
-    .project-code code {
-      font-family: 'Courier New', monospace;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    /* Badge Styles */
-    .badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-left: 8px;
-      background: rgba(76, 175, 80, 0.15);
-      color: #81C784;
-      border: 1px solid rgba(76, 175, 80, 0.3);
-    }
-
-    .meta {
-      width: 100%;
-    }
-
-    footer{padding:28px 24px;text-align:center;color:var(--muted);border-top:1px solid var(--card-border)}
-
-    /* Glowing Contact Buttons */
-    .contact-links {
-      display: flex;
+      justify-content: center;
+      gap: 15px;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-top: 24px;
+      padding: 50px 20px;
     }
 
-    .contact-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--card-bg);
-      color: var(--text);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 600;
+    .social-btn {
       text-decoration: none;
-      border: 1px solid var(--card-border);
-      transition: all 0.3s ease;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      color: var(--text);
+      border: 1px solid var(--accent);
+      padding: 10px 25px;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    .contact-btn img {
-      width: 20px;
-      height: 20px;
-    }
-    
-    [data-theme="dark"] .contact-btn img {
-      filter: invert(1);
+    .social-btn:hover {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    .contact-btn:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 0 20px var(--accent), 0 0 60px rgba(198,40,40,0.4);
+    footer { text-align: center; padding: 40px; color: var(--muted); font-size: 0.8rem; letter-spacing: 2px; }
+
+    @media (max-width: 768px) {
+      header { padding: 15px 20px; }
+      .glitch { font-size: 2.5rem; }
     }
-
-    /* Platform glow colors */
-    .whatsapp:hover { box-shadow: 0 0 18px #25D366, 0 0 60px #25D36680; color:#25D366; }
-    .instagram:hover { box-shadow: 0 0 18px #E4405F, 0 0 60px #E4405F80; color:#E4405F; }
-    .telegram:hover { box-shadow: 0 0 18px #0088CC, 0 0 60px #0088CC80; color:#0088CC; }
-    .github:hover { box-shadow: 0 0 18px #999, 0 0 60px #9995; color:#fff; }
-    .codeforces:hover { box-shadow: 0 0 18px #0050b3, 0 0 60px #0050b380; color:#87CEFA; }
-
-    /* Floating social bar */
-    .floating-bar {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 100;
-    }
-
-    .float-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      transition: all .3s ease;
-    }
-
-    .float-icon img { width: 22px; height: 22px; }
-    
-    [data-theme="dark"] .float-icon img { filter: invert(1); }
-
-    .float-icon:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 20px var(--accent);
-    }
-
-    /* Theme Toggle Button */
-    .theme-toggle {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--card-bg);
-      border: 2px solid var(--card-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 100;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    .theme-toggle:hover {
-      transform: scale(1.1) rotate(15deg);
-      box-shadow: 0 6px 20px var(--accent);
-    }
-
-    .theme-toggle svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--accent);
-      transition: transform 0.3s ease;
-    }
-
-    .theme-toggle:hover svg {
-      transform: rotate(180deg);
-    }
-
-    @media(max-width:980px){.hero-inner{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
 
-  <!-- Welcome Splash Screen -->
-  <div id="welcome-splash">
-    <div class="welcome-content">
-      <div class="welcome-logo">MK</div>
-      <div class="welcome-text">Welcome</div>
-      <div class="welcome-subtitle">MD. MOBAROK KARIM</div>
-    </div>
-  </div>
+  <div id="theme-flash"></div>
 
   <header>
-    <div class="brand">
-      <div class="logo">MK</div>
-      <div>
-        <div style="font-weight:700">MD. Mobarok Karim</div>
-        <div style="font-size:12px;color:var(--muted)">CSE • UITS</div>
-      </div>
+    <a href="#" class="logo">MK</a>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <button class="theme-toggle" onclick="toggleTheme()">SWITCH_MODE</button>
     </div>
-
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact" class="cta">Contact</a>
-    </nav>
   </header>
 
   <main>
-    <section id="home" class="hero">
-      <div class="hero-inner container">
-        <div class="intro">
-          <div class="eyebrow">Anime Dark Mode</div>
-          <h1 class="glow">MD. Mobarok Karim</h1>
-          <p class="lead">CSE student at UITS. Passionate about systems, algorithms, and anime-themed design. I work in <strong>C</strong>, <strong>C++</strong>, and <strong>Python</strong>.</p>
-          <div class="actions">
-            <a class="btn" href="#about">About Me</a>
-            <a class="btn" href="#skills">View Skills</a>
-            <a class="btn" href="#projects">My Projects</a>
-          </div>
+    <!-- Hero -->
+    <section class="hero">
+      <p style="color: var(--accent); font-weight: 700; letter-spacing: 5px;" data-aos="fade-down">SYSTEM_INITIALIZED</p>
+      <h1 class="glitch" data-aos="zoom-in">Mobarok Karim</h1>
+      <p style="color: var(--muted); font-family: 'Fira Code';" data-aos="fade-up">Full-Stack Developer & Competitive Programmer</p>
+    </section>
+
+    <!-- Status Board -->
+    <div class="status-board" data-aos="fade-up">
+      <div class="status-header">USER_PROFILE_V2.0</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+        <div>
+          <p><span style="color:var(--accent)">LVL:</span> 21 (CSE Student)</p>
+          <p><span style="color:var(--accent)">GUILD:</span> UITS University</p>
+          <p><span style="color:var(--accent)">ROLE:</span> Backend Specialist</p>
         </div>
+        <div>
+          <p><span style="color:var(--accent)">INT:</span> C++, Java, Python</p>
+          <p><span style="color:var(--accent)">AGI:</span> Competitive Coding</p>
+          <p><span style="color:var(--accent)">RANK:</span> Newbie @ Codeforces</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <h2 style="text-align: center; font-family: 'Cinzel'; margin-top: 100px;">SKILL_TREE</h2>
+    <section class="skills-grid" id="skills">
+      <div class="skill-box" data-aos="fade-right">
+        <div class="skill-label"><span>JAVA</span><span>85%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-percent="85"></div></div>
+      </div>
+      <div class="skill-box" data-aos="fade-left">
+        <div class="skill-label"><span>C++</span><span>92%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-percent="92"></div></div>
+      </div>
+      <div class="skill-box" data-aos="fade-right">
+        <div class="skill-label"><span>PYTHON</span><span>80%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-percent="80"></div></div>
+      </div>
+      <div class="skill-box" data-aos="fade-left">
+        <div class="skill-label"><span>WEB DESIGN</span><span>88%</span></div>
+        <div class="bar-bg"><div class="bar-fill" data-percent="88"></div></div>
       </div>
     </section>
 
-    <section id="skills">
-      <div class="container">
-        <div class="section-title">
-          <h2>Skills</h2>
-          <span>Languages & tools</span>
-        </div>
-        <div class="skills-list">
-          <div class="skill"><div class="meta"><div>C</div><div class="bar"><i data-level="85"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>C++</div><div class="bar"><i data-level="78"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>Python</div><div class="bar"><i data-level="82"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>Java</div><div class="bar"><i data-level="75"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>HTML</div><div class="bar"><i data-level="90"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>CSS</div><div class="bar"><i data-level="88"></i></div></div></div>
-          <div class="skill"><div class="meta"><div>JavaScript</div><div class="bar"><i data-level="80"></i></div></div></div>
-          <div class="skill">
-            <div class="meta">
-              <div>
-                Codeforces <span class="badge">Beginner Level</span>
-              </div>
-              <div style="font-size:13px;color:var(--muted);margin-top:6px">
-                Handle: <a href="https://codeforces.com/profile/arafatkarim236" target="_blank" style="color:var(--accent);text-decoration:none">arafatkarim236</a><br>
-                Problems solved: <strong>20+</strong> • Currently learning and improving
-              </div>
-              <div class="bar"><i data-level="40"></i></div>
-            </div>
-          </div>
-        </div>
+    <!-- Projects -->
+    <h2 style="text-align: center; font-family: 'Cinzel'; margin-top: 100px;">PROJECT_ARCHIVE</h2>
+    <section class="project-grid">
+      <div class="project-card" data-aos="flip-down">
+        <h3>ATM Logic System</h3>
+        <p>A high-security simulation of banking protocols using C. Features PIN validation and transaction logs.</p>
+      </div>
+      <div class="project-card" data-aos="flip-down" data-aos-delay="100">
+        <h3>Casino Engine</h3>
+        <p>A probability-based game engine written in C++. Uses dynamic seeding for randomized results.</p>
+      </div>
+      <div class="project-card" data-aos="flip-down" data-aos-delay="200">
+        <h3>Java Student Auth</h3>
+        <p>A GUI-based login and registration system utilizing Java Swing and file handling.</p>
       </div>
     </section>
 
-    <section id="projects">
-      <div class="container">
-        <div class="section-title"><h2>Projects</h2><span>C / C++ work</span></div>
-        <div class="projects-grid">
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">CGPA Calculator</div>
-                <div class="project-desc">Calculates a student's cumulative grade point average based on course grades and credits.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;iostream&gt;
-using namespace std;
-
-int main() {
-    int n;
-    float totalPoints = 0, totalCredits = 0;
-
-    cout &lt;&lt; "Enter number of courses: ";
-    cin &gt;&gt; n;
-
-    for(int i = 0; i &lt; n; i++) {
-        float grade, credit;
-        cout &lt;&lt; "Enter grade and credit for course " &lt;&lt; i+1 &lt;&lt; ": ";
-        cin &gt;&gt; grade &gt;&gt; credit;
-        totalPoints += grade * credit;
-        totalCredits += credit;
-    }
-
-    cout &lt;&lt; "Your CGPA: " &lt;&lt; totalPoints / totalCredits &lt;&lt; endl;
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">Rock Paper Scissors Game</div>
-                <div class="project-desc">A simple game where users play against the computer, choosing between rock, paper, or scissors.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
-#include &lt;ctime&gt;
-using namespace std;
-
-int main() {
-    srand(time(0));
-    int user, computer;
-
-    cout &lt;&lt; "Rock(1), Paper(2), Scissors(3): ";
-    cin &gt;&gt; user;
-
-    computer = rand() % 3 + 1;
-
-    if(user == computer) cout &lt;&lt; "Draw!";
-    else if((user == 1 && computer == 3) ||
-            (user == 2 && computer == 1) ||
-            (user == 3 && computer == 2))
-        cout &lt;&lt; "You Win!";
-    else cout &lt;&lt; "Computer Wins!";
-
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">Casino Number Guessing Game</div>
-                <div class="project-desc">Players guess a random number generated by the computer to win prizes based on difficulty.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;iostream&gt;
-#include &lt;cstdlib&gt;
-#include &lt;ctime&gt;
-using namespace std;
-
-int main() {
-    srand(time(0));
-    int balance = 100, bet, guess, number;
-
-    while(balance &gt; 0) {
-        number = rand() % 10 + 1;
-        cout &lt;&lt; "Balance: $" &lt;&lt; balance &lt;&lt; "\nBet amount: ";
-        cin &gt;&gt; bet;
-
-        cout &lt;&lt; "Guess (1-10): ";
-        cin &gt;&gt; guess;
-
-        if(guess == number) {
-            balance += bet * 10;
-            cout &lt;&lt; "You won! ";
-        } else {
-            balance -= bet;
-            cout &lt;&lt; "Wrong! Number was " &lt;&lt; number;
-        }
-        cout &lt;&lt; endl;
-    }
-
-    cout &lt;&lt; "Game Over!";
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">Scientific Calculator</div>
-                <div class="project-desc">Performs basic and advanced mathematical operations, including trigonometric functions.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;iostream&gt;
-#include &lt;cmath&gt;
-using namespace std;
-
-int main() {
-    int choice;
-    double a, b;
-
-    cout &lt;&lt; "1.Add 2.Sub 3.Mul 4.Div 5.Sin 6.Cos 7.Tan\n";
-    cin &gt;&gt; choice;
-
-    if(choice &lt;= 4) {
-        cout &lt;&lt; "Enter two numbers: ";
-        cin &gt;&gt; a &gt;&gt; b;
-    } else {
-        cout &lt;&lt; "Enter angle (degrees): ";
-        cin &gt;&gt; a;
-        a = a * M_PI / 180;
-    }
-
-    switch(choice) {
-        case 1: cout &lt;&lt; a + b; break;
-        case 2: cout &lt;&lt; a - b; break;
-        case 3: cout &lt;&lt; a * b; break;
-        case 4: cout &lt;&lt; a / b; break;
-        case 5: cout &lt;&lt; sin(a); break;
-        case 6: cout &lt;&lt; cos(a); break;
-        case 7: cout &lt;&lt; tan(a); break;
-    }
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">Login and Registration System</div>
-                <div class="project-desc">Manages user credentials, allowing registration and login functionalities.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;iostream&gt;
-#include &lt;fstream&gt;
-#include &lt;string&gt;
-using namespace std;
-
-void registerUser() {
-    string username, password;
-    cout &lt;&lt; "Enter username: "; cin &gt;&gt; username;
-    cout &lt;&lt; "Enter password: "; cin &gt;&gt; password;
-
-    ofstream file("users.txt", ios::app);
-    file &lt;&lt; username &lt;&lt; " " &lt;&lt; password &lt;&lt; endl;
-    file.close();
-    cout &lt;&lt; "Registration successful!\n";
-}
-
-void login() {
-    string u, p, username, password;
-    cout &lt;&lt; "Username: "; cin &gt;&gt; username;
-    cout &lt;&lt; "Password: "; cin &gt;&gt; password;
-
-    ifstream file("users.txt");
-    bool found = false;
-    while(file &gt;&gt; u &gt;&gt; p) {
-        if(u == username && p == password) {
-            found = true; break;
-        }
-    }
-    cout &lt;&lt; (found ? "Login successful!" : "Invalid!") &lt;&lt; endl;
-}
-
-int main() {
-    int choice;
-    cout &lt;&lt; "1.Register 2.Login: ";
-    cin &gt;&gt; choice;
-    choice == 1 ? registerUser() : login();
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-
-          <div class="project-card" onclick="toggleCode(this)">
-            <div class="project-header">
-              <div>
-                <div class="project-title">ATM Simulation</div>
-                <div class="project-desc">ATM system with deposit, withdraw, and balance check features.</div>
-              </div>
-              <span class="expand-icon">+</span>
-            </div>
-            <div class="project-code">
-              <pre><code>#include &lt;stdio.h&gt;
-
-int main() {
-    float balance = 0, amount;
-    int choice;
-
-    do {
-        printf("\n1.Check 2.Deposit 3.Withdraw 4.Exit\n");
-        scanf("%d", &choice);
-
-        switch(choice) {
-            case 1:
-                printf("Balance: %.2f BDT\n", balance);
-                break;
-            case 2:
-                printf("Deposit: ");
-                scanf("%f", &amount);
-                balance += amount;
-                break;
-            case 3:
-                printf("Withdraw: ");
-                scanf("%f", &amount);
-                if(amount &lt;= balance)
-                    balance -= amount;
-                else
-                    printf("Insufficient!\n");
-                break;
-        }
-    } while(choice != 4);
-
-    return 0;
-}</code></pre>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Contact -->
+    <section class="contact-bar">
+      <a href="https://wa.me/8801902083120" class="social-btn" data-aos="zoom-in">WHATSAPP</a>
+      <a href="https://github.com/cosmicrays007" class="social-btn" data-aos="zoom-in" data-aos-delay="100">GITHUB</a>
+      <a href="https://t.me/Arafatkarim" class="social-btn" data-aos="zoom-in" data-aos-delay="200">TELEGRAM</a>
     </section>
-
-    <section id="contact">
-      <div class="container">
-        <div class="section-title"><h2>Contact</h2><span>Connect with me</span></div>
-        <div class="contact-links">
-          <a href="https://wa.me/8801902083120" class="contact-btn whatsapp" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"> WhatsApp
-          </a>
-          <a href="https://instagram.com/md.mobarokkarim" class="contact-btn instagram" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"> Instagram
-          </a>
-          <a href="https://t.me/Arafatkarim" class="contact-btn telegram" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg"> Telegram
-          </a>
-          <a href="https://github.com/cosmicrays007" class="contact-btn github" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"> GitHub
-          </a>
-          <a href="https://codeforces.com/profile/arafatkarim236" class="contact-btn codeforces" target="_blank">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/codeforces.svg"> Codeforces
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <footer>© <span id="year"></span> MD. Mobarok Karim — Dark Anime Portfolio</footer>
   </main>
 
-  <!-- Theme Toggle Button -->
-  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-    <svg id="theme-icon-sun" viewBox="0 0 24 24" style="display: none;">
-      <circle cx="12" cy="12" r="5"/>
-      <line x1="12" y1="1" x2="12" y2="3"/>
-      <line x1="12" y1="21" x2="12" y2="23"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-      <line x1="1" y1="12" x2="3" y2="12"/>
-      <line x1="21" y1="12" x2="23" y2="12"/>
-      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-    </svg>
-    <svg id="theme-icon-moon" viewBox="0 0 24 24">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
-  </button>
+  <footer>
+    &copy; <span id="year"></span> MD. MOBAROK KARIM // PROTOCOL: ANIME_LIGHT_V1
+  </footer>
 
-  <!-- Floating Bar -->
-  <div class="floating-bar">
-    <a href="https://wa.me/8801902083120" target="_blank" class="float-icon"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/whatsapp.svg"></a>
-    <a href="https://instagram.com/md.mobarokkarim" target="_blank" class="float-icon"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"></a>
-    <a href="https://t.me/Arafatkarim" target="_blank" class="float-icon"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg"></a>
-  </div>
-
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Theme Toggle
+    AOS.init({ duration: 1000 });
+
+    // Theme Toggle Logic
     function toggleTheme() {
       const html = document.documentElement;
-      const currentTheme = html.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      const flash = document.getElementById('theme-flash');
       
-      html.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      
-      // Toggle icons
-      const sunIcon = document.getElementById('theme-icon-sun');
-      const moonIcon = document.getElementById('theme-icon-moon');
-      
-      if (newTheme === 'light') {
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
-      } else {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-      }
+      // Trigger anime flash effect
+      flash.classList.add('flash-active');
+      setTimeout(() => {
+        flash.classList.remove('flash-active');
+      }, 600);
+
+      // Delay actual theme swap to middle of flash
+      setTimeout(() => {
+        if (html.getAttribute('data-theme') === 'dark') {
+          html.setAttribute('data-theme', 'light');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+        }
+      }, 300);
     }
 
-    // Load saved theme
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', savedTheme);
-      
-      const sunIcon = document.getElementById('theme-icon-sun');
-      const moonIcon = document.getElementById('theme-icon-moon');
-      
-      if (savedTheme === 'light') {
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
-      } else {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-      }
-    });
+    // Skill Bar Animation
+    const skillSection = document.querySelector('#skills');
+    const progressBars = document.querySelectorAll('.bar-fill');
 
-    document.getElementById('year').textContent=new Date().getFullYear();
-
-    function animateSkills(){
-      document.querySelectorAll('.bar>i').forEach(el=>{
-        el.style.width=el.getAttribute('data-level')+'%';
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          progressBars.forEach(bar => {
+            bar.style.width = bar.dataset.percent + '%';
+          });
+        }
       });
-    }
+    }, { threshold: 0.3 });
 
-    const io=new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting)animateSkills();
-      });
-    },{threshold:0.2});
-    io.observe(document.querySelector('#skills'));
+    observer.observe(skillSection);
 
-    // Toggle project code
-    function toggleCode(card) {
-      card.classList.toggle('expanded');
-    }
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
